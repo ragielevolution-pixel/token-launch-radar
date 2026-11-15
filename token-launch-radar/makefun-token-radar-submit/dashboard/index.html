@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar: pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+<h1>Token Radar</h1>
+<p class="sub">Pre-token protocols, ranked by what a launch would be worth if the protocol's record stayed as it is.</p>
+<p class="meta" id="meta">Loading the sealed snapshot…</p>
+</header>
+<section id="model" aria-label="How the ranking works">
+<h2>How the ranking works</h2>
+<p>Implied value = TVL × peer multiple × growth × maturity × chain spread. The peer multiple is the median market-cap-to-TVL of live-token protocols in the same category (at least 3 peers, otherwise the global median), clamped to 0.10–4.00. Growth is the 7-day TVL change clamped to −40%…+80% and weighted 0.6. Maturity rises with the days since DefiLlama first listed the protocol. Chain spread rewards protocols live on more chains. Nothing is special-cased by name, and the value is this radar's own claim — it does not predict whether or when a token is issued.</p>
+<p>“Records no token” means the sealed DefiLlama snapshot records no token for the protocol. It is not proof the protocol has none.</p>
+</section>
+<section id="controls" aria-label="Filter the board">
+<label>Search <input id="q" type="search" placeholder="Name or slug"></label>
+<label>Category <select id="category"><option value="">All categories</option></select></label>
+<label>Chain <select id="chain"><option value="">All chains</option></select></label>
+<label>Min TVL <select id="mintvl">
+<option value="0">Any TVL</option>
+<option value="50000000">$50M+</option>
+<option value="100000000">$100M+</option>
+<option value="500000000">$500M+</option>
+<option value="1000000000">$1B+</option>
+</select></label>
+<label class="check"><input id="watchlist" type="checkbox"> Watchlist only</label>
+<label>Sort <select id="sort">
+<option value="rank">Rank (implied value)</option>
+<option value="tvl">TVL, high to low</option>
+<option value="change">7-day change, high to low</option>
+<option value="age">Age, oldest first</option>
+<option value="name">Name A–Z</option>
+</select></label>
+<p id="count" aria-live="polite"></p>
+</section>
+<main id="board">
+<table id="board-table">
+<thead><tr><th>#</th><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>7d</th><th>Age</th><th>Implied value</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</main>
+<section id="detail" aria-label="Protocol detail">
+<h2>Protocol detail</h2>
+<p id="detail-empty">Select a row in the board to see its model breakdown and farm plan.</p>
+<div id="detail-body" hidden></div>
+</section>
+<section id="live" aria-label="Live-token protocols">
+<h2>Already trading — for comparison, not ranked</h2>
+<p>These protocols already have a token that trades, so the board shows the market's own value for them instead of a model value. They are not part of the ranked board.</p>
+<table id="live-table">
+<thead><tr><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>MCap / TVL</th></tr></thead>
+<tbody id="live-rows"></tbody>
+</table>
+</section>
+<footer>
+<p>Data: the sealed DefiLlama snapshot dated in the header above. This page makes no network calls: all data is embedded in data.js beside it.</p>
+</footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
